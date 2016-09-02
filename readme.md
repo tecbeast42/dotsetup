@@ -2,14 +2,14 @@
 
 ## Install the dependencies
 
-* zsh
-* antigen
+* ~~zsh~~
+* ~~antigen~~
 * php/composer
 * phyton/pip
 * ruby/gem
 * node/npm
 * docker
-* yaourt 
+* ~~yaourt~~ 
 * nvim
 * sublime
 * atom

@@ -70,6 +70,7 @@ if installed yaourt
     then echo "yaourt already installed"
     else installYaourt
 fi
+
 ##################################################
 # Zsh
 ##################################################
