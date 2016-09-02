@@ -50,11 +50,17 @@ function tryInstalling() {
     fi
 }
 
-echo "${GREEN}Starting provisioning .... ${NC}" 
+function superPrint() {
+    echo -e "${GREEN}################################################################################"
+    echo -e "${GREEN}# ${YELLOW}$1"
+    echo -e "${GREEN}################################################################################${NC}"
+}
 
 ##################################################
 # Prepare System
 ##################################################
+
+superPrint "Preparing System"
 
 if [[ $EUID -eq 0 ]]; then
     echo "This script can not be run as root" 1>&2
@@ -67,7 +73,7 @@ if installed sudo
 fi
 
 # Update System
-echo -e "${YELLOW}Updating System${NC}"
+echo -e "Updating System"
 sudo pacman -Syyu --noconfirm > /dev/null
 
 # Install yaourt
@@ -82,7 +88,7 @@ tryInstalling curl
 # Zsh
 ##################################################
 
-echo -e "${YELLOW}Installing and make zsh the default ${NC}"
+superPrint "Installing ZSH and make it default for user and root"
 
 # Install Zsh
 tryInstalling zsh
@@ -97,11 +103,12 @@ echo "Installing antigen"
 tryInstalling antigen-git
 
 echo -e "Zsh installed successfully ${YELLOW} You need to restart the terminal if you have been using another shell than ZSH"
-echo -e "${GREEN}###############################${NC}"
 
 ##################################################
 # Install typical dev dependencies
 ##################################################
+
+superPrint "Installing dev dependencies"
 
 echo "Installing PHP Setup"
 tryInstalling php
@@ -126,4 +133,7 @@ echo "Installing Editors"
 tryInstalling neovim
 tryInstalling sublime-text-dev
 tryInstalling atom-editor
+
+
+superPrint "You are ready to go"
 
