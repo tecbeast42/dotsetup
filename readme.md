@@ -4,19 +4,19 @@
 
 * ~~zsh~~
 * ~~antigen~~
-* php/composer
-* phyton/pip
-* ruby/gem
-* node/npm
-* docker
+* ~~php/composer~~
+* ~~python/pip~~
+* ~~ruby/gem~~
+* ~~node/npm~~
+* ~~docker~~
 * ~~yaourt~~ 
-* nvim
-* sublime
-* atom
+* ~~nvim~~
+* ~~sublime~~
+* ~~atom~~
 
 ## Install dotfiles
 
 * vim/nvim
 * zsh
 * xmodmap
-
+* tmux

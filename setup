@@ -50,7 +50,7 @@ function tryInstalling() {
     fi
 }
 
-echo "Starting provisioning .... " 
+echo "${GREEN}Starting provisioning .... ${NC}" 
 
 ##################################################
 # Prepare System
@@ -97,6 +97,33 @@ echo "Installing antigen"
 tryInstalling antigen-git
 
 echo -e "Zsh installed successfully ${YELLOW} You need to restart the terminal if you have been using another shell than ZSH"
-echo -e "${GREEN}###############################"
+echo -e "${GREEN}###############################${NC}"
 
+##################################################
+# Install typical dev dependencies
+##################################################
+
+echo "Installing PHP Setup"
+tryInstalling php
+tryInstalling composer
+
+echo "Installing Python"
+tryInstalling python
+tryInstalling python-pip
+
+echo "Installing Ruby"
+tryInstalling ruby
+
+echo "Installing Node/NPM"
+tryInstalling nodejs
+tryInstalling npm
+
+echo "Installing docker with compose"
+tryInstalling docker
+tryInstalling docker-compose
+
+echo "Installing Editors"
+tryInstalling neovim
+tryInstalling sublime-text-dev
+tryInstalling atom-editor
 
