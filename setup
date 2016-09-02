@@ -1,0 +1,100 @@
+#!/usr/bin/sh
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+START_DIRECTORY=`pwd`
+
+echo "Starting provisioning for user: $SUDO_USER"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+#################################################
+# Functions
+##################################################
+
+function installYaourt() {
+    cd /tmp
+    mkdir -p installing_yaourt
+    cd installing_yaourt
+
+    # Install package-query
+    curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/package-query.tar.gz
+    tar -xvzf package-query.tar.gz
+    cd package-query
+    makepkg -si
+    cd ..
+
+    # Install yaourt
+    curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
+    tar -xvzf yaourt.tar.gz
+    cd yaourt
+     makepkg -si 
+}
+
+# Check if a package is installed
+function installed() {
+    pacman -Qi $1 > /dev/null
+    if [ $? -eq 0 ]
+        then return 0 
+        else return 1
+    fi
+}
+
+##################################################
+# Prepare System
+##################################################
+
+# Update System
+echo -e "${YELLOW}Updating System${NC}"
+pacman -Syu --noconfirm > /dev/null
+
+# Install base dependencies
+if installed sudo 
+    then echo "sudo already installed"
+    else pacman -S sudo
+fi
+
+# Install curl
+if installed curl 
+    then echo "curl already installed"
+    else pacman -S curl
+fi
+
+# Install yaourt
+if installed yaourt
+    then echo "yaourt already installed"
+    else installYaourt
+fi
+##################################################
+# Zsh
+##################################################
+
+echo -e "${YELLOW}Installing and make zsh the default ${NC}"
+
+# Install Zsh
+if installed zsh 
+    then echo "ZSH already installed"
+    else pacman -S zsh --noconfirm
+fi
+
+# Set zsh as default shell
+chsh -s `which zsh` ${SUDO_USER}
+chsh -s `which zsh` root
+
+echo "Installing antigen"
+
+# Check if antigen is installed
+if installed antigen-git
+    then echo "antigen already installed"
+    else yaourt -S antigen-git --noconfirm
+fi
+
+echo -e "Zsh installed successfully ${YELLOW} You need to restart the terminal if you have been using another shell than ZSH"
+echo -e "${GREEN}###############################"
+
+
