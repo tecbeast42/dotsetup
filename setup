@@ -43,6 +43,13 @@ function install() {
     yaourt -S --noconfirm $1
 }
 
+function tryInstalling() {
+    if installed $1 
+        then echo "$1 already installed"
+        else install $1
+    fi
+}
+
 echo "Starting provisioning .... " 
 
 ##################################################
@@ -63,23 +70,13 @@ fi
 echo -e "${YELLOW}Updating System${NC}"
 sudo pacman -Syyu --noconfirm > /dev/null
 
-# Install base dependencies
-if installed sudo 
-    then echo "sudo already installed"
-    else pacman -S sudo
-fi
-
-# Install curl
-if installed curl 
-    then echo "curl already installed"
-    else pacman -S curl
-fi
-
 # Install yaourt
 if installed yaourt
     then echo "yaourt already installed"
     else installYaourt
 fi
+
+tryInstalling curl
 
 ##################################################
 # Zsh
@@ -88,10 +85,7 @@ fi
 echo -e "${YELLOW}Installing and make zsh the default ${NC}"
 
 # Install Zsh
-if installed zsh 
-    then echo "ZSH already installed"
-    else install zsh 
-fi
+tryInstalling zsh
 
 # Set zsh as default shell
 sudo chsh -s `which zsh` ${SUDO_USER}
@@ -100,10 +94,7 @@ sudo chsh -s `which zsh` root
 echo "Installing antigen"
 
 # Check if antigen is installed
-if installed antigen-git
-    then echo "antigen already installed"
-    else install antigen-git
-fi
+tryInstalling antigen-git
 
 echo -e "Zsh installed successfully ${YELLOW} You need to restart the terminal if you have been using another shell than ZSH"
 echo -e "${GREEN}###############################"
