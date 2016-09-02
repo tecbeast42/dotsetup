@@ -6,13 +6,6 @@ NC='\033[0m' # No Color
 
 START_DIRECTORY=`pwd`
 
-echo "Starting provisioning for user: $SUDO_USER"
-
-if [[ $EUID -ne 0 ]]; then
-    echo "This script must be run as root" 1>&2
-    exit 1
-fi
-
 #################################################
 # Functions
 ##################################################
@@ -33,7 +26,7 @@ function installYaourt() {
     curl -O https://aur.archlinux.org/cgit/aur.git/snapshot/yaourt.tar.gz
     tar -xvzf yaourt.tar.gz
     cd yaourt
-     makepkg -si 
+    makepkg -si 
 }
 
 # Check if a package is installed
@@ -45,13 +38,30 @@ function installed() {
     fi
 }
 
+# Install package
+function install() {
+    yaourt -S --noconfirm $1
+}
+
+echo "Starting provisioning .... " 
+
 ##################################################
 # Prepare System
 ##################################################
 
+if [[ $EUID -eq 0 ]]; then
+    echo "This script can not be run as root" 1>&2
+    exit 1
+fi
+
+if installed sudo
+    then echo "Ready to go" 
+    else echo "Please install Sudo"
+fi
+
 # Update System
 echo -e "${YELLOW}Updating System${NC}"
-pacman -Syu --noconfirm > /dev/null
+sudo pacman -Syyu --noconfirm > /dev/null
 
 # Install base dependencies
 if installed sudo 
@@ -80,19 +90,19 @@ echo -e "${YELLOW}Installing and make zsh the default ${NC}"
 # Install Zsh
 if installed zsh 
     then echo "ZSH already installed"
-    else pacman -S zsh --noconfirm
+    else install zsh 
 fi
 
 # Set zsh as default shell
-chsh -s `which zsh` ${SUDO_USER}
-chsh -s `which zsh` root
+sudo chsh -s `which zsh` ${SUDO_USER}
+sudo chsh -s `which zsh` root
 
 echo "Installing antigen"
 
 # Check if antigen is installed
 if installed antigen-git
     then echo "antigen already installed"
-    else yaourt -S antigen-git --noconfirm
+    else install antigen-git
 fi
 
 echo -e "Zsh installed successfully ${YELLOW} You need to restart the terminal if you have been using another shell than ZSH"
