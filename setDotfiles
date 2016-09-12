@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+SCRIPTPATH=$(readlink -f "$0")
+BASEDIR=$(dirname "$SCRIPTPATH")
+echo $BASEDIR
+
+DOTFILES=${BASEDIR}/dotfiles/*
+
+for f in $DOTFILES
+do
+	TARGETPATH=~/.$(basename $f)
+	if [ ! -e "$TARGETPATH" ]; then
+		echo "Processing $f file..."
+		ln -s $f $TARGETPATH 
+	else
+		echo "$TARGETPATH already exists - skip"
+	fi
+done

@@ -1,0 +1,86 @@
+# Enable <t_CO> colors
+case "$TERM" in
+    xterm*) TERM=xterm-256color
+esac 
+
+#nes configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=100000
+bindkey -e
+# End of lines configured by zsh-newuser-install
+autoload -U colors && colors
+source /usr/share/zsh/scripts/antigen/antigen.zsh
+
+antigen-use oh-my-zsh
+
+antigen bundle common-aliases
+antigen bundle git
+antigen bundle npm
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle djui/alias-tips
+antigen bundle supercrabtree/k
+
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status context_joined time)
+POWERLEVEL9K_TIME_FORMAT='%D{%H:%M}'
+
+POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
+
+POWERLEVEL9K_TIME_FOREGROUND='015'
+POWERLEVEL9K_TIME_BACKGROUND='240'
+
+POWERLEVEL9K_DIR_HOME_BACKGROUND="239"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="white"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="239"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="white"
+POWERLEVEL9K_DIR_DEFAULT_BACKGROUND="239"
+POWERLEVEL9K_DIR_DEFAULT_FOREGROUND="white"
+
+POWERLEVEL9K_CONTEXT_FOREGROUND='229'
+POWERLEVEL9K_CONTEXT_BACKGROUND='240'
+
+antigen apply
+
+alias ls='ls --color --group-directories-first'
+
+alias fucking='sudo'
+alias subl='subl3'
+alias so='subl3 -a'
+alias cTVS='cd ~/Code/cellular/tvspielfilm_live'
+
+alias art='php artisan'
+alias artS="php artisan migrate:refresh --seed"
+alias comdump='composer dump-autoload'
+
+alias gis="git status"
+alias gia="git add ."
+alias gil="git log --oneline --graph"
+
+alias save-power="sudo cpupower frequency-set -u 800Mhz"
+alias full-power="sudo cpupower frequency-set -g performance"
+alias eV="vim ~/.vimrc"
+alias eZ="vim ~/.zshrc"
+alias sZ="source ~/.zshrc"
+alias eI="vim ~/.config/i3/config"
+alias k="k -h"
+
+alias gulpw="gulp && gulp watch"
+
+#composer bins
+PATH=$PATH:~/.composer/vendor/bin:~/Code/zscreen/src:
+PATH="$(ruby -rubygems -e 'print Gem.user_dir')/bin:$PATH"
+
+#Add Android Path
+PATH=$PATH:/opt/android-sdk/tools/:
+
+figlet -ctf small  -k "TecBeast"
+
+# Android Studio
+export JAVA_HOME=/usr/lib/jvm/java-7-jdk
+PATH=$PATH:/opt/android-sdk/platform-tools
