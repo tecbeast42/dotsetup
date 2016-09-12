@@ -17,6 +17,6 @@
 ## Install dotfiles
 
 * vim/nvim
-* zsh
+* ~~zsh~~
 * xmodmap
-* tmux
+* ~~tmux~~
