@@ -6,13 +6,24 @@ echo $BASEDIR
 
 DOTFILES=${BASEDIR}/dotfiles/*
 
+setDotfile () {
+	echo "Set link from $1 to $2"
+	ln -s $1 $2
+}
+
 for f in $DOTFILES
 do
 	TARGETPATH=~/.$(basename $f)
-	if [ ! -e "$TARGETPATH" ]; then
-		echo "Processing $f file..."
-		ln -s $f $TARGETPATH 
+	# Check if file exists
+	if [ -e "$TARGETPATH" ]; then
+		echo "$TARGETPATH already exists"
+		if [ ! -L "$TARGETPATH" ] || [ ! "$(readlink -- "$TARGETPATH")" = $f ]; then
+			echo "Something is wrong with the link $TARGETPATH; fixing ..."
+			mv $TARGETPATH $TARGETPATH.bak
+			setDotfile $f $TARGETPATH
+		fi
+
 	else
-		echo "$TARGETPATH already exists - skip"
+		setDotfile $f $TARGETPATH 
 	fi
 done
