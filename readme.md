@@ -20,3 +20,7 @@
 * ~~zsh~~
 * xmodmap
 * ~~tmux~~
+
+## Script to set roots dotfiles
+
+> Done

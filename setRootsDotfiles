@@ -11,10 +11,10 @@ setDotfile () {
 	ln -s $1 $2
 }
 
-# Set Users dotfiles
+# Set root dotfiles
 for f in $DOTFILES
 do
-	TARGETPATH=~/.$(basename $f)
+	TARGETPATH=/root/.$(basename $f)
 	# Check if file exists
 	if [ -e "$TARGETPATH" ]; then
 		echo "$TARGETPATH already exists"
@@ -28,4 +28,3 @@ do
 		setDotfile $f $TARGETPATH 
 	fi
 done
-
