@@ -73,9 +73,14 @@ alias eV="vim ~/.vimrc"
 alias eZ="vim ~/.zshrc"
 alias sZ="source ~/.zshrc"
 alias eI="vim ~/.config/i3/config"
+alias eH="sudo vim /etc/hosts"
+alias rD="sudo systemctl start docker"
 alias k="k -h"
 
 alias Cs="./control start"
+alias Cb="./control rebuild"
+alias Cr="./control fullRebuild"
+alias Cp="./control ps"
 
 alias gulpw="gulp && gulp watch"
 
