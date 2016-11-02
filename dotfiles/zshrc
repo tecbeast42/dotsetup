@@ -75,12 +75,15 @@ alias sZ="source ~/.zshrc"
 alias eI="vim ~/.config/i3/config"
 alias eH="sudo vim /etc/hosts"
 alias rD="sudo systemctl start docker"
+alias Dclear="docker stop \$(docker ps -a -q) && docker rm \$(docker ps -a -q)"
 alias k="k -h"
 
 alias Cs="./control start"
+alias Cd="./control down"
 alias Cb="./control rebuild"
-alias Cr="./control fullRebuild"
 alias Cp="./control ps"
+alias Cw="./control w"
+alias Ct="./control run codecept run"
 
 alias gulpw="gulp && gulp watch"
 
