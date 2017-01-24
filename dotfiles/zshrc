@@ -75,6 +75,7 @@ alias sZ="source ~/.zshrc"
 alias eI="vim ~/.config/i3/config"
 alias eH="sudo vim /etc/hosts"
 alias rD="sudo systemctl start docker"
+alias Dstop="docker stop \$(docker ps -q)"
 alias Dclear="docker stop \$(docker ps -a -q) && docker rm \$(docker ps -a -q)"
 alias k="k -h"
 
@@ -84,6 +85,8 @@ alias Cb="./control rebuild"
 alias Cp="./control ps"
 alias Cw="./control w"
 alias Ct="./control run codecept run"
+alias Cr="./control run"
+alias Cart="./control run php artisan"
 
 alias gulpw="gulp && gulp watch"
 
@@ -94,8 +97,18 @@ PATH="$(ruby -rubygems -e 'print Gem.user_dir')/bin:$PATH"
 #Add Android Path
 PATH=$PATH:/opt/android-sdk/tools/:
 
+#Meteor
+PATH=$PATH:$HOME/.meteor
+
 figlet -ctf small  -k "TecBeast"
 
 # Android Studio
 export JAVA_HOME=/usr/lib/jvm/java-7-jdk
 PATH=$PATH:/opt/android-sdk/platform-tools
+
+# Node Vars
+export NODE_ENV=development
+
+# function rI() {
+#     docker run --rm -it $1 bash
+# }
