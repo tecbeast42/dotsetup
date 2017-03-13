@@ -3,6 +3,9 @@ case "$TERM" in
     xterm*) TERM=xterm-256color
 esac 
 
+# enable sensitive matching
+CASE_SENSITIVE="true"
+
 #nes configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -59,6 +62,7 @@ alias subl='subl3'
 alias so='subl3 -a'
 alias cTVS='cd ~/Code/cellular/tvspielfilm_live'
 alias cW1TV='cd ~/Code/web1tv'
+alias cUM='cd ~/Code/cellular/unitymedia_bestellstrecke'
 
 alias art='php artisan'
 alias artS="php artisan migrate:refresh --seed"
