@@ -58,7 +58,7 @@ alias fucking='sudo'
 alias subl='subl3'
 alias so='subl3 -a'
 alias cTVS='cd ~/Code/cellular/tvspielfilm_live'
-
+alias cUMB='cd ~/Code/cellular/unitymedia_bestellstrecke/'
 alias art='php artisan'
 alias artS="php artisan migrate:refresh --seed"
 alias comdump='composer dump-autoload'
@@ -72,7 +72,7 @@ alias full-power="sudo cpupower frequency-set -g performance"
 alias eV="vim ~/.vimrc"
 alias eZ="vim ~/.zshrc"
 alias sZ="source ~/.zshrc"
-alias eI="vim ~/.config/i3/config"
+alias eI="vim ~/.i3/config"
 alias eH="sudo vim /etc/hosts"
 alias rD="sudo systemctl start docker"
 alias Dclear="docker stop \$(docker ps -a -q) && docker rm \$(docker ps -a -q)"
@@ -84,8 +84,12 @@ alias Cb="./control rebuild"
 alias Cp="./control ps"
 alias Cw="./control w"
 alias Ct="./control run codecept run"
+alias Cart="./control run php artisan"
 
 alias gulpw="gulp && gulp watch"
+alias grb="grunt build"
+
+alias sCellular="xrandr --output HDMI1 --mode 2560x1440 &&  xrandr --output HDMI1 --right-of eDP1 && xrandr --output VGA1 --right-of HDMI1"
 
 #composer bins
 PATH=$PATH:~/.composer/vendor/bin:~/Code/zscreen/src:
@@ -99,3 +103,8 @@ figlet -ctf small  -k "TecBeast"
 # Android Studio
 export JAVA_HOME=/usr/lib/jvm/java-7-jdk
 PATH=$PATH:/opt/android-sdk/platform-tools
+
+# Enable in cmd calc 
+calc () {
+    bc -l <<< "$@"
+}
