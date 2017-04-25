@@ -14,13 +14,13 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 autoload -U colors && colors
 
-source /usr/share/zsh/scripts/antigen/antigen.zsh 
+source /usr/share/zsh/share/antigen.zsh
 
-antigen-use oh-my-zsh
+antigen use oh-my-zsh
 
 antigen bundle common-aliases
 antigen bundle git
-antigen bundle npm
+# antigen bundle npm
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle djui/alias-tips
@@ -28,6 +28,7 @@ antigen bundle supercrabtree/k
 
 antigen theme bhilburn/powerlevel9k powerlevel9k
 
+POWERLEVEL9K_INSTALLATION_PATH=~/.antigen/bundles/bhilburn/powerlevel9k
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)

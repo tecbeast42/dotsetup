@@ -1,31 +1,55 @@
 #!/usr/bin/sh
 
 SCRIPTPATH=$(readlink -f "$0")
-BASEDIR=$(dirname "$SCRIPTPATH")
-echo $BASEDIR
+NC='\033[0m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+# BASEDIR=$(dirname "$SCRIPTPATH")
+DOTENTITIES=$(dirname "$SCRIPTPATH")/dotfiles/
 
-DOTFILES=${BASEDIR}/dotfiles/*
+# Setup all links to process
+typeset -A DOTSETUPLINKS # initiliaze empty array
+DOTSETUPLINKS[zshrc]=~/.zshrc
+DOTSETUPLINKS[tmux.conf]=~/.tmux.conf
+DOTSETUPLINKS[sublime-snippets]=~/.config/sublime-text-3/Packages/User/sublime-snippets
 
 setDotfile () {
 	echo "Set link from $1 to $2"
 	ln -s $1 $2
 }
 
-# Set Users dotfiles
-for f in $DOTFILES
-do
-	TARGETPATH=~/.$(basename $f)
-	# Check if file exists
+for i in "${!DOTSETUPLINKS[@]}"
+do :
+	SOURCEPATH=${DOTENTITIES}${i}
+	TARGETPATH=${DOTSETUPLINKS[$i]}
+	echo -e ${YELLOW}${SOURCEPATH} =\> ${TARGETPATH}${NC}
 	if [ -e "$TARGETPATH" ]; then
-		echo "$TARGETPATH already exists"
-		if [ ! -L "$TARGETPATH" ] || [ ! "$(readlink -- "$TARGETPATH")" = $f ]; then
-			echo "Something is wrong with the link $TARGETPATH; fixing ..."
-			mv $TARGETPATH $TARGETPATH.bak
-			setDotfile $f $TARGETPATH
+		echo -e ${RED}Target ${TARGETPATH} already exists${NC}
+		if [ ! -L "$TARGETPATH" ] || [ ! "$(readlink -- "$TARGETPATH")" = $SOURCEPATH ]; then
+			echo -e "${RED}${TARGETPATH} is not pointing to ${SOURCEPATH}. Fixing ..."
+			mv ${TARGETPATH} ${TARGETPATH}.bak
+			setDotfile ${SOURCEPATH} ${TARGETPATH}
 		fi
-
 	else
-		setDotfile $f $TARGETPATH 
+		setDotfile ${SOURCEPATH} ${TARGETPATH}
 	fi
 done
+
+# # Set Users dotfiles
+# for f in $DOTFILES
+# do
+# 	TARGETPATH=~/.$(basename $f)
+# 	# Check if file exists
+# 	if [ -e "$TARGETPATH" ]; then
+# 		echo "$TARGETPATH already exists"
+# 		if [ ! -L "$TARGETPATH" ] || [ ! "$(readlink -- "$TARGETPATH")" = $f ]; then
+# 			echo "Something is wrong with the link $TARGETPATH; fixing ..."
+# 			mv $TARGETPATH $TARGETPATH.bak
+# 			setDotfile $f $TARGETPATH
+# 		fi
+
+# 	else
+# 		setDotfile $f $TARGETPATH
+# 	fi
+# done
 
