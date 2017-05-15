@@ -1,0 +1,21 @@
+<snippet>
+    <content><![CDATA[
+<template>${1:html}</template>
+
+<script lang="babel">
+    export default {
+        data() {
+            return {};
+        },
+        created () {},
+        computed : {},
+        methods : {},
+    };
+</script>
+]]></content>
+
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>vuec</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>

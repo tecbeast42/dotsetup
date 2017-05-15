@@ -84,6 +84,7 @@ alias eH="sudo vim /etc/hosts"
 alias rD="sudo systemctl start docker"
 alias Dstop="docker stop \$(docker ps -q)"
 alias Dclear="docker stop \$(docker ps -a -q) && docker rm \$(docker ps -a -q)"
+alias Dpurge="docker stop \$(docker ps -a -q) && docker rm \$(docker ps -a -q) && docker rmi \$(docker images -q)"
 alias k="k -h"
 
 alias rWeb1TV="VBoxManage startvm web1tv --type headless"
@@ -100,6 +101,9 @@ alias Cr="./control run"
 
 alias gulpw="gulp && gulp watch"
 alias grb="grunt build"
+alias nrw="npm run watch"
+alias nrd="npm run dev"
+alias nrp="npm run production"
 
 alias sCellular="xrandr --output HDMI1 --mode 2560x1440 &&  xrandr --output HDMI1 --right-of eDP1 && xrandr --output VGA1 --right-of HDMI1"
 
@@ -116,7 +120,7 @@ PATH=$PATH:$HOME/.meteor
 figlet -ctf small  -k "TecBeast"
 
 # Android Studio
-export JAVA_HOME=/usr/lib/jvm/java-7-jdk
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 PATH=$PATH:/opt/android-sdk/platform-tools
 
 # Enable in cmd calc 
