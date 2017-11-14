@@ -10,27 +10,38 @@ CASE_SENSITIVE="true"
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=100000
+EDITOR=vim
 bindkey -e
 # End of lines configured by zsh-newuser-install
 autoload -U colors && colors
 source /usr/share/zsh/share/antigen.zsh 
+# source <(antibody init)
 
-antigen-use oh-my-zsh
+antigen use oh-my-zsh
 
 antigen bundle common-aliases
 antigen bundle git
 antigen bundle npm
+antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle djui/alias-tips
 antigen bundle supercrabtree/k
+# antibody bundle zsh-users/zsh-autosuggestions
+# antibody bundle zsh-users/zsh-completions
+# antibody bundle zsh-users/zsh-syntax-highlighting
+# antibody bundle djui/alias-tips
+# antibody bundle supercrabtree/k
 
 antigen theme bhilburn/powerlevel9k powerlevel9k
+# antibody bundle bhilburn/powerlevel9k
+# antibody bundle zsh-users/zsh-history-substring-search
 
+# POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status context time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status context)
 POWERLEVEL9K_TIME_FORMAT='%D{%H:%M}'
 
 POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=""
@@ -87,18 +98,22 @@ alias k="k -h"
 alias rWeb1TV="VBoxManage startvm web1tv --type headless"
 alias ssWeb1TV="ssh root@web1tv.dev"
 
-alias Cs="./control start"
-alias Cd="./control down"
-alias Cb="./control rebuild"
-alias Cp="./control ps"
-alias Cw="./control w"
-alias Ct="./control run codecept run"
-alias Cr="./control run"
-alias Cart="./control run php artisan"
+alias Cs=". control start"
+alias Cd=". control down"
+alias Cb=". control rebuild"
+alias Cp=". control ps"
+alias Cw=". control w"
+alias Ct=". control run codecept run"
+alias Cr=". control run"
+alias Cart=". control run php artisan"
+
+alias C=". control"
 
 alias gulpw="gulp && gulp watch"
 alias gw="gulp watch"
 
+alias W="wunderline"
+alias newPass="cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1"
 #composer bins
 PATH=$PATH:~/.config/composer/vendor/bin:~/Code/zscreen/src:
 PATH="$(ruby -rubygems -e 'print Gem.user_dir')/bin:$PATH"
@@ -121,3 +136,6 @@ export NODE_ENV=development
 # function rI() {
 #     docker run --rm -it $1 bash
 # }
+
+# added by travis gem
+[ -f /home/tecbeast/.travis/travis.sh ] && source /home/tecbeast/.travis/travis.sh
