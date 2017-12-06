@@ -137,5 +137,13 @@ export NODE_ENV=development
 #     docker run --rm -it $1 bash
 # }
 
+function pass() {
+    if ! [[ $1 =~ '^[0-9]+$' ]] ; then
+        echo "pass needs a number argument" >&2
+    else
+        cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w $1 | head -n 1
+    fi
+}
+
 # added by travis gem
 [ -f /home/tecbeast/.travis/travis.sh ] && source /home/tecbeast/.travis/travis.sh
