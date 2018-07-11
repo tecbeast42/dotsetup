@@ -15,27 +15,28 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 autoload -U colors && colors
 source /usr/share/zsh/share/antigen.zsh 
-# source <(antibody init)
 
-antigen use oh-my-zsh
+#composer bins
+PATH=$PATH:~/.config/composer/vendor/bin:~/Code/zscreen/src:
 
-antigen bundle common-aliases
-antigen bundle git
-antigen bundle npm
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle djui/alias-tips
-antigen bundle supercrabtree/k
-# antibody bundle zsh-users/zsh-autosuggestions
-# antibody bundle zsh-users/zsh-completions
-# antibody bundle zsh-users/zsh-syntax-highlighting
-# antibody bundle djui/alias-tips
-# antibody bundle supercrabtree/k
+# ruby bins
+# PATH="$(ruby -rubygems -e 'print Gem.user_dir')/bin:$PATH"
 
-antigen theme bhilburn/powerlevel9k powerlevel9k
-# antibody bundle bhilburn/powerlevel9k
-# antibody bundle zsh-users/zsh-history-substring-search
+#Add Android Path
+PATH=$PATH:/opt/android-sdk/tools/:
+
+#Meteor
+PATH=$PATH:$HOME/.meteor
+
+#Go lang
+PATH="$PATH:$HOME/go/bin"
+
+# Android Studio
+export JAVA_HOME=/usr/lib/jvm/java-7-jdk
+PATH=$PATH:/opt/android-sdk/platform-tools
+
+# Node Vars
+export NODE_ENV=development
 
 # POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
@@ -64,6 +65,18 @@ POWERLEVEL9K_CONTEXT_ROOT_BACKGROUND='088'
 
 POWERLEVEL9K_STATUS_VERBOSE=false
 
+antigen bundle common-aliases
+antigen bundle git
+antigen bundle npm
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle djui/alias-tips
+
+antigen use oh-my-zsh
+
+antigen theme bhilburn/powerlevel9k powerlevel9k
+
 antigen apply
 
 alias ls='ls --color --group-directories-first'
@@ -71,9 +84,9 @@ alias ls='ls --color --group-directories-first'
 alias fucking='sudo'
 alias subl='subl3'
 alias so='subl3 -a'
-alias cTVS='cd ~/Code/cellular/tvspielfilm_live'
-alias cW1TV='cd ~/Code/web1tv'
-alias cUM='cd ~/Code/cellular/unitymedia_bestellstrecke'
+
+# cd shortcuts
+alias cB="cd ~/Code/bayer/dftams-frontend"
 
 alias art='php artisan'
 alias artS="php artisan migrate:refresh --seed"
@@ -113,29 +126,6 @@ alias gulpw="gulp && gulp watch"
 alias gw="gulp watch"
 
 alias W="wunderline"
-alias newPass="cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1"
-#composer bins
-PATH=$PATH:~/.config/composer/vendor/bin:~/Code/zscreen/src:
-PATH="$(ruby -rubygems -e 'print Gem.user_dir')/bin:$PATH"
-
-#Add Android Path
-PATH=$PATH:/opt/android-sdk/tools/:
-
-#Meteor
-PATH=$PATH:$HOME/.meteor
-
-figlet -ctf small  -k "TecBeast"
-
-# Android Studio
-export JAVA_HOME=/usr/lib/jvm/java-7-jdk
-PATH=$PATH:/opt/android-sdk/platform-tools
-
-# Node Vars
-export NODE_ENV=development
-
-# function rI() {
-#     docker run --rm -it $1 bash
-# }
 
 function pass() {
     if ! [[ $1 =~ '^[0-9]+$' ]] ; then
@@ -145,5 +135,20 @@ function pass() {
     fi
 }
 
-# added by travis gem
-[ -f /home/tecbeast/.travis/travis.sh ] && source /home/tecbeast/.travis/travis.sh
+figlet -ctf small  -k "TecBeast"
+
+alias dcup="docker-compose up -d"
+alias dcdn="docker-compose down"
+alias dclf="docker-compose logs -f"
+
+alias wp="docker-compose -f docker-compose.yml -f docker-compose.wpcli.yml run --rm wpcli"
+alias wp_fast="wp --skip-packages --skip-plugins --skip-themes"
+
+yd_dc() { git archive --remote git@git.yesdevs.com:oktron/docker-compose.git --format tar master | tar -x; rm -f .gitignore; }
+yd_gc() { git clone "git@git.yesdevs.com:$1.git" $2; }
+yd_sr() { wp_fast search-replace $1 $2 --recurse-objects --skip-columns=guid --all-tables; }
+
+alias yd_dcmysql="mysql -uroot -pmysql -h127.0.0.1"
+alias yd_dcmysqldump="mysqldump -uroot -pmysql -h127.0.0.1"
+
+source /usr/share/nvm/init-nvm.sh
