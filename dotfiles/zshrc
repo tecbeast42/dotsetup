@@ -106,10 +106,6 @@ alias eH="sudo vim /etc/hosts"
 alias rD="sudo systemctl start docker"
 alias Dstop="docker stop \$(docker ps -q)"
 alias Dclear="docker stop \$(docker ps -a -q) && docker rm \$(docker ps -a -q)"
-alias k="k -h"
-
-alias rWeb1TV="VBoxManage startvm web1tv --type headless"
-alias ssWeb1TV="ssh root@web1tv.dev"
 
 alias Cs=". control start"
 alias Cd=". control down"
